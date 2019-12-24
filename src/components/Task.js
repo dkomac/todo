@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 const TaskContainer = styled.div`
@@ -20,10 +20,30 @@ const Checkbox = styled.input`
   margin-right: 20px;
 `;
 
+const ActionsContainer = styled.div``;
+
 import { Context } from './../App';
 
 const Task = ({ text, isDone, id }) => {
   const dispatch = useContext(Context);
+  const [isEditing, setIsEditing] = useState(false);
+  const [taskTitle, setTaskTitle] = useState(0);
+
+  const renderTitle = renderTextField => {
+    return renderTextField ? (
+      <input
+        type="text"
+        value={text}
+        onChange={e => {
+          setTaskTitle(e.target.value);
+          console.log(taskTitle);
+        }}
+      />
+    ) : (
+      <Title>{text}</Title>
+    );
+  };
+
   return (
     <TaskContainer>
       <Checkbox
@@ -33,7 +53,25 @@ const Task = ({ text, isDone, id }) => {
           dispatch({ type: 'check', payload: id });
         }}
       />
-      <Title>{text}</Title>
+      {renderTitle(isEditing)}
+      <ActionsContainer>
+        <button
+          onClick={() => {
+            console.log('yes');
+            setIsEditing(true);
+          }}
+        >
+          edit
+        </button>
+        <button
+          onClick={() => {
+            console.log('delete');
+            dispatch({ type: 'delete', payload: id });
+          }}
+        >
+          delete
+        </button>
+      </ActionsContainer>
     </TaskContainer>
   );
 };

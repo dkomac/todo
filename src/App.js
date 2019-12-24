@@ -1,10 +1,9 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import Paginator from './components/Paginator';
 import AddOrEditModal from './components/AddOrEditModal';
 import { createGlobalStyle } from 'styled-components';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
-// const AppContainer = styled.div``;
 const GlobalStyle = createGlobalStyle`
   html, body {
     margin: 0;
@@ -31,6 +30,28 @@ function reducer(state, action) {
           }
           return item;
         })
+      };
+    case 'delete':
+      return {
+        ...state,
+        list: state.list.filter(item => item.id !== action.payload)
+      };
+    case 'add':
+      const newTask = {
+        title: action.payload,
+        isDone: false,
+        id: Date.now()
+      };
+      return {
+        ...state,
+        isModalOpen: false,
+        list: [newTask, ...state.list]
+      };
+    case 'toggleModal':
+      console.log(action);
+      return {
+        ...state,
+        isModalOpen: action.payload
       };
     default:
       return state;
@@ -59,6 +80,8 @@ const initialState = {
   ]
 };
 
+const NewTaskContainer = styled.div``;
+
 export const Context = React.createContext();
 
 const App = () => {
@@ -67,14 +90,21 @@ const App = () => {
   const { pageIndex, list, isModalOpen } = state;
   console.log(list);
   return (
-    // <AppContainer>
     <Context.Provider value={dispatch}>
       <GlobalStyle />
       <button onClick={() => console.log(state)}>test</button>
+      <button
+        onClick={() => {
+          console.log('hello');
+          dispatch({ type: 'toggleModal', payload: true });
+        }}
+      >
+        Add nEw TasK
+      </button>
+      <NewTaskContainer></NewTaskContainer>
       {isModalOpen && <AddOrEditModal />}
       <Paginator {...state} />
     </Context.Provider>
-    // </AppContainer>
   );
 };
 

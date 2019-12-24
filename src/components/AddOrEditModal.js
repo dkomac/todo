@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
+
+import { Context } from './../App';
 
 const Modal = styled.div`
   position: absolute;
@@ -26,11 +28,25 @@ const AddOrEditContainer = styled.div`
 `;
 
 const AddOrEditModal = () => {
+  const dispatch = useContext(Context);
+  const [newTask, setNewTask] = useState('');
   return (
     <Modal>
       <AddOrEditContainer>
-        <input type="text" />
-        <button>save</button>
+        <input
+          type="text"
+          value={newTask}
+          onChange={e => {
+            setNewTask(e.target.value);
+          }}
+        />
+        <button
+          onClick={() => {
+            dispatch({ type: 'add', payload: newTask });
+          }}
+        >
+          save
+        </button>
       </AddOrEditContainer>
       <Overlay />
     </Modal>
