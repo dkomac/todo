@@ -10,11 +10,6 @@ const TaskContainer = styled.div`
   align-items: start;
 `;
 
-const PaginationButton = styled.button`
-  margin: 3px;
-  padding: 5px;
-`;
-
 const PaginationMenu = styled.div`
   display: flex;
   justify-content: center;
@@ -28,10 +23,12 @@ const AppWrapper = styled.div`
 const Paginator = ({ pageIndex: index, list }) => {
   const [pageIndex, setPageIndex] = useState(index);
   const [items, setItems] = useState([]);
-  const size = 3;
+  const PAGE_SIZE = 5;
 
   useEffect(() => {
-    setItems(list.slice(pageIndex * size, pageIndex * size + size));
+    setItems(
+      list.slice(pageIndex * PAGE_SIZE, pageIndex * PAGE_SIZE + PAGE_SIZE)
+    );
   }, [pageIndex, list]);
 
   const onPrev = () => {
@@ -43,8 +40,7 @@ const Paginator = ({ pageIndex: index, list }) => {
   };
 
   const onNext = () => {
-    console.log(pageIndex, Math.round(list.length / size));
-    if (pageIndex >= list.length / size - 1) {
+    if (pageIndex >= list.length / PAGE_SIZE - 1) {
       return;
     }
     const nextPage = pageIndex + 1;
@@ -66,9 +62,9 @@ const Paginator = ({ pageIndex: index, list }) => {
         })}
       </TaskContainer>
       <PaginationMenu>
-        <PaginationButton onClick={onPrev}>Previous</PaginationButton>
+        <Button onClick={onPrev}>Previous</Button>
         <div>{pageIndex}</div>
-        <PaginationButton onClick={onNext}>Next</PaginationButton>
+        <Button onClick={onNext}>Next</Button>
       </PaginationMenu>
     </AppWrapper>
   );
