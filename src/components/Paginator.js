@@ -1,8 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Task from './Task';
 import styled from 'styled-components';
+import { Context } from './../App';
 
-import { Button } from './common';
+import { Button, IconButton } from './common';
+
+const BUTTON_TYPE = {
+  LEFT: 'left',
+  RIGHT: 'right',
+  DELETE: 'delete',
+  EDIT: 'edit'
+};
 
 const TaskContainer = styled.div`
   display: flex;
@@ -23,6 +31,7 @@ const AppWrapper = styled.div`
 const Paginator = ({ pageIndex: index, list }) => {
   const [pageIndex, setPageIndex] = useState(index);
   const [items, setItems] = useState([]);
+  const dispatch = useContext(Context);
   const PAGE_SIZE = 5;
 
   useEffect(() => {
@@ -47,8 +56,23 @@ const Paginator = ({ pageIndex: index, list }) => {
     setPageIndex(nextPage);
   };
 
+  console.log(BUTTON_TYPE);
+
   return (
     <AppWrapper>
+      <PaginationMenu>
+        <Button
+          onClick={() => {
+            dispatch({ type: 'toggleModal', payload: true });
+          }}
+        >
+          Add a new task
+        </Button>
+        <IconButton onClick={onPrev} type={BUTTON_TYPE.LEFT} />
+        <div>Page: {pageIndex}</div>
+        <IconButton onClick={onNext} type={BUTTON_TYPE.RIGHT} />
+      </PaginationMenu>
+
       <TaskContainer>
         {items.map(item => {
           return (
@@ -61,11 +85,6 @@ const Paginator = ({ pageIndex: index, list }) => {
           );
         })}
       </TaskContainer>
-      <PaginationMenu>
-        <Button onClick={onPrev}>Previous</Button>
-        <div>{pageIndex}</div>
-        <Button onClick={onNext}>Next</Button>
-      </PaginationMenu>
     </AppWrapper>
   );
 };

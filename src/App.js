@@ -104,13 +104,6 @@ const App = () => {
   return (
     <Context.Provider value={dispatch}>
       <GlobalStyle />
-      <button
-        onClick={() => {
-          dispatch({ type: 'toggleModal', payload: true });
-        }}
-      >
-        Add a new task
-      </button>
       <NewTaskContainer></NewTaskContainer>
       {isModalOpen && <AddNewTaskModal />}
       <Paginator {...state} />

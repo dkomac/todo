@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Button, Input } from './common';
+import { Context } from './../App';
 
 const TaskContainer = styled.div`
   display: flex;
@@ -30,8 +31,6 @@ const ActionsContainer = styled.div`
   flex-direction: column;
   padding-left: 5px;
 `;
-
-import { Context } from './../App';
 
 const Task = ({ text, isDone, id }) => {
   const dispatch = useContext(Context);
