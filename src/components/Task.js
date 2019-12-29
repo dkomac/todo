@@ -18,6 +18,7 @@ const Title = styled.h2`
   font-size: 15px;
   margin: 0;
   font-weight: normal;
+  text-decoration: ${props => (props.isDone ? 'line-through' : 'none')};
 `;
 
 const Checkbox = styled.input`
@@ -43,7 +44,7 @@ const Task = ({ text, isDone, id }) => {
     return renderTextField ? (
       <Input type="text" value={taskTitle} onChange={hangleInput} />
     ) : (
-      <Title>{text}</Title>
+      <Title isDone={isDone}>{text}</Title>
     );
   };
 

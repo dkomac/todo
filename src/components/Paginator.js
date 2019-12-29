@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Task from './Task';
 import styled from 'styled-components';
 import { Context } from './../App';
-
+import Searchbar from './Searchbar';
 import { Button, IconButton } from './common';
 
 const BUTTON_TYPE = {
@@ -21,14 +21,19 @@ const TaskContainer = styled.div`
 const PaginationMenu = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
 `;
 
 const AppWrapper = styled.div`
   max-width: 400px;
+  margin: 10px auto;
 `;
 
-const Paginator = ({ pageIndex: index, list }) => {
+const CreateNewButton = styled(Button)`
+  margin-right: auto;
+`;
+
+const Paginator = ({ pageIndex: index, list, searchTerm }) => {
   const [pageIndex, setPageIndex] = useState(index);
   const [items, setItems] = useState([]);
   const dispatch = useContext(Context);
@@ -36,9 +41,11 @@ const Paginator = ({ pageIndex: index, list }) => {
 
   useEffect(() => {
     setItems(
-      list.slice(pageIndex * PAGE_SIZE, pageIndex * PAGE_SIZE + PAGE_SIZE)
+      list
+        .filter(item => item.title.includes(searchTerm))
+        .slice(pageIndex * PAGE_SIZE, pageIndex * PAGE_SIZE + PAGE_SIZE)
     );
-  }, [pageIndex, list]);
+  }, [pageIndex, list, searchTerm]);
 
   const onPrev = () => {
     if (pageIndex <= 0) {
@@ -56,18 +63,17 @@ const Paginator = ({ pageIndex: index, list }) => {
     setPageIndex(nextPage);
   };
 
-  console.log(BUTTON_TYPE);
-
   return (
     <AppWrapper>
+      <Searchbar />
       <PaginationMenu>
-        <Button
+        <CreateNewButton
           onClick={() => {
             dispatch({ type: 'toggleModal', payload: true });
           }}
         >
           Add a new task
-        </Button>
+        </CreateNewButton>
         <IconButton onClick={onPrev} type={BUTTON_TYPE.LEFT} />
         <div>Page: {pageIndex}</div>
         <IconButton onClick={onNext} type={BUTTON_TYPE.RIGHT} />

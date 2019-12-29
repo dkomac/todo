@@ -9,16 +9,17 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     height: 100%;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
     font-family: monospace;
   }
 `;
 
 function reducer(state, action) {
   switch (action.type) {
+    case 'search':
+      return {
+        ...state,
+        searchTerm: action.payload
+      };
     case 'check':
       return {
         ...state,
@@ -74,6 +75,7 @@ function reducer(state, action) {
 const initialState = {
   pageIndex: 0,
   isModalOpen: false,
+  searchTerm: '',
   list: [
     { title: 'task2', isDone: false, id: 'task2' },
     { title: 'potato is the key of life', isDone: true, id: 'task1' },

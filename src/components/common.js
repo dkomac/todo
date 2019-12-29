@@ -4,6 +4,9 @@ import { MdChevronRight, MdChevronLeft } from 'react-icons/md';
 
 export const Button = styled.button`
   margin: 3px;
+  :hover {
+    cursor: pointer;
+  }
 `;
 export const Input = styled.input`
   border: 0;
