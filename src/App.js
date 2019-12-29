@@ -77,21 +77,29 @@ const initialState = {
   isModalOpen: false,
   searchTerm: '',
   list: [
-    { title: 'task2', isDone: false, id: 'task2' },
-    { title: 'potato is the key of life', isDone: true, id: 'task1' },
+    { title: 'Spend a Weekend in Vegas.', isDone: false, id: 'task2' },
+    { title: 'Perform at a Stand Up Comedy Club.', isDone: true, id: 'task1' },
     {
-      title: 'this is some copy pasta, read this hahaa. send help',
+      title: 'Learn How to Do a Backflip.',
       isDone: false,
       id: 'task3'
     },
-    { title: 'task4', isDone: false, id: 'task4' },
-    { title: 'task5', isDone: false, id: 'task5' },
-    { title: 'task6', isDone: false, id: 'task6' },
-    { title: 'task7', isDone: false, id: 'task7' },
-    { title: 'task8', isDone: false, id: 'task8' },
-    { title: 'task9', isDone: false, id: 'task9' },
-    { title: 'task10', isDone: false, id: 'task10' },
-    { title: 'task11', isDone: false, id: 'task11' }
+    { title: 'Go to Disney Land Paris.', isDone: false, id: 'task4' },
+    {
+      title: 'Cook 30 Recipes from 30 Different Countries in 30 Days.',
+      isDone: false,
+      id: 'task5'
+    },
+    { title: 'Become a Farmer.', isDone: false, id: 'task6' },
+    {
+      title: 'Bake a Cake For Someone For No Reason.',
+      isDone: false,
+      id: 'task7'
+    },
+    { title: 'Taste 1,000 Different Wines.', isDone: false, id: 'task8' },
+    { title: 'Attend a Costume Party.', isDone: false, id: 'task9' },
+    { title: 'Have a 24 Hour Movie-Marathon.', isDone: false, id: 'task10' },
+    { title: 'Have a Lucid Dream.', isDone: false, id: 'task11' }
   ]
 };
 
