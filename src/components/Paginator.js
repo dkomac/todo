@@ -56,7 +56,7 @@ const Paginator = ({ pageIndex: index, list, searchTerm }) => {
   };
 
   const onNext = () => {
-    if (pageIndex >= list.length / PAGE_SIZE - 1) {
+    if (pageIndex > list.length / PAGE_SIZE - 1) {
       return;
     }
     const nextPage = pageIndex + 1;
