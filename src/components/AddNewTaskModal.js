@@ -44,13 +44,20 @@ const AddContainer = styled.div`
   border-radius: 3px;
 `;
 
+const ErrorMessage = styled.p`
+  color: red;
+  margin: 0 0 20px 0;
+`;
+
 const AddNewTaskModal = () => {
   const dispatch = useContext(Context);
   const [newTask, setNewTask] = useState('');
+  const [error, setError] = useState('');
   return (
     <Modal>
       <AddContainer>
         <Title>Add A new task</Title>
+        <ErrorMessage>{error}</ErrorMessage>
         <Input
           type="text"
           placeholder="Enter title of the task"
@@ -62,7 +69,12 @@ const AddNewTaskModal = () => {
         <ActionContainer>
           <Button
             onClick={() => {
-              dispatch({ type: 'add', payload: newTask });
+              if (newTask.length > 0) {
+                setError('');
+                dispatch({ type: 'add', payload: newTask });
+              } else {
+                setError('You need to fill something in');
+              }
             }}
           >
             save

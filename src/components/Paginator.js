@@ -42,7 +42,7 @@ const Paginator = ({ pageIndex: index, list, searchTerm }) => {
   useEffect(() => {
     setItems(
       list
-        .filter(item => item.title.includes(searchTerm))
+        .filter(item => item.title.toLowerCase().includes(searchTerm))
         .slice(pageIndex * PAGE_SIZE, pageIndex * PAGE_SIZE + PAGE_SIZE)
     );
   }, [pageIndex, list, searchTerm]);
